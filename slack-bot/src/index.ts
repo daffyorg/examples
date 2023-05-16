@@ -19,7 +19,7 @@ console.log(
 );
 
 // Listen for /daffy slash commands
-app.command("/daffybot", async ({ command, ack, respond }) => {
+app.command("/daffy", async ({ command, ack, respond }) => {
   console.log(
     `Received /daffy command: ${command.text} from ${command.user_name}`
   );
