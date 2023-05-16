@@ -99,7 +99,7 @@ app.event("app_mention", async ({ event, client }) => {
         await client.chat.postMessage({
           channel: event.channel,
           text: `Here are the non-profits related to '${query}':\n${nonProfits
-            .map((np) => `• ${np.name} (${np.public_url})`)
+            .map((nonProfit) => `• ${nonProfit.name} (${nonProfit.public_url})`)
             .join("\n")}`,
         });
       }
