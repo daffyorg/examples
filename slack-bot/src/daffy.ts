@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from "axios";
-import { NonProfit } from "./types";
+import axios from "axios";
+import { Gift, NonProfit, NonProfitResponse } from "./types";
 
 // Learn more at https://docs.daffy.org
 const apiBaseUrl = "https://api.daffy.org/public/api/v1";
@@ -18,7 +18,7 @@ export class DaffyClient {
    */
   async searchNonProfits(query: string): Promise<NonProfit[]> {
     try {
-      const response: AxiosResponse = await axios.get(
+      const response = await axios.get<NonProfitResponse>(
         `${apiBaseUrl}/non_profits`,
         {
           headers: { "X-Api-Key": this.apiKey },
@@ -26,7 +26,9 @@ export class DaffyClient {
         }
       );
 
-      return response.data.items;
+      // Return the first page of non-profits
+      const nonProfits = response.data.items;
+      return nonProfits;
     } catch (error) {
       console.error("Error searching for non-profits:", error);
       throw error;
@@ -37,11 +39,11 @@ export class DaffyClient {
    * Send a Daffy gift to a user by name.
    * @param {string} name - The name of the recipient.
    * @param {number} amount - The amount of the gift.
-   * @returns {Promise<any>} The response data from the API.
+   * @returns {Promise<Gift>} The response data from the API.
    */
-  async sendGift(name: string, amount: number): Promise<any> {
+  async sendGift(name: string, amount: number): Promise<Gift> {
     try {
-      const response: AxiosResponse = await axios.post(
+      const response = await axios.post<Gift>(
         `${apiBaseUrl}/gifts`,
         {
           name,
@@ -52,7 +54,8 @@ export class DaffyClient {
         }
       );
 
-      return response.data;
+      const gift = response.data;
+      return gift;
     } catch (error) {
       console.error("Error sending Daffy gift:", error);
       throw error;

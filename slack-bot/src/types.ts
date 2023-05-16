@@ -1,7 +1,26 @@
+export type Paggy = {
+  page: number;
+  count: number;
+  last: number;
+};
+
+/**
+ * Represents a generic paginated response
+ */
+export type Paginated<Item> = {
+  items: Item[];
+  meta: Paggy;
+};
+
+/**
+ * Represents a response from the /non_profits API endpoint.
+ */
+export type NonProfitResponse = Paginated<NonProfit>;
+
 /**
  * Represents a non-profit organization.
  */
-export interface NonProfit {
+export type NonProfit = {
   id: number;
   ein: string;
   name: string;
@@ -15,24 +34,24 @@ export interface NonProfit {
   public_url: string;
   causes: Cause[];
   primary_cause?: Cause;
-}
+};
 
 /**
  * Represents a cause supported by a non-profit.
  */
-export interface Cause {
+export type Cause = {
   id: number;
   name: string;
   color?: string;
   image_url?: string;
   image_url_dark?: string;
   logo?: string;
-}
+};
 
 /**
  * Represents a gift made to a non-profit.
  */
-export interface Gift {
+export type Gift = {
   amount: number;
   claimed: boolean;
   code: string;
@@ -44,4 +63,4 @@ export interface Gift {
   status: string;
   updated_at: string;
   url: string;
-}
+};
