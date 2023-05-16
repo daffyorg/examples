@@ -1,7 +1,6 @@
 import { App } from "@slack/bolt";
 import { config } from "dotenv";
 import { DaffyClient } from "./daffy";
-import { NonProfit } from "./types";
 
 config();
 
