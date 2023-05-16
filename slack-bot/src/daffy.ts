@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { Gift, NonProfit, NonProfitResponse } from "./types";
 
 // Learn more at https://docs.daffy.org
@@ -18,7 +18,7 @@ export class DaffyClient {
    */
   async searchNonProfits(query: string): Promise<NonProfit[]> {
     try {
-      const response: AxiosResponse = await axios.get(
+      const response = await axios.get<NonProfitResponse>(
         `${apiBaseUrl}/non_profits`,
         {
           headers: { "X-Api-Key": this.apiKey },
@@ -26,7 +26,9 @@ export class DaffyClient {
         }
       );
 
-      return response.data.items;
+      // Return the first page of non-profits
+      const nonProfits = response.data.items;
+      return nonProfits;
     } catch (error) {
       console.error("Error searching for non-profits:", error);
       throw error;
