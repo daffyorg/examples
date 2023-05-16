@@ -1,3 +1,22 @@
+export type Paggy = {
+  page: number;
+  count: number;
+  last: number;
+};
+
+/**
+ * Represents a generic paginated response
+ */
+export type Paginated<Item> = {
+  items: Item[];
+  meta: Paggy;
+};
+
+/**
+ * Represents a response from the /non_profits API endpoint.
+ */
+export type NonProfitResponse = Paginated<NonProfit>;
+
 /**
  * Represents a non-profit organization.
  */
