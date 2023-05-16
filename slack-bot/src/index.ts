@@ -4,15 +4,28 @@ import { DaffyClient } from "./daffy";
 
 config();
 
+const token = process.env.SLACK_BOT_TOKEN;
+if (!token) throw new Error("SLACK_BOT_TOKEN is not set.");
+
+const appToken = process.env.SLACK_APP_TOKEN;
+if (!appToken) throw new Error("SLACK_APP_TOKEN is not set.");
+
 const app = new App({
-  token: process.env.SLACK_BOT_TOKEN,
-  appToken: process.env.SLACK_APP_TOKEN,
+  token,
+  appToken,
   socketMode: true,
 });
 
-const daffyClient = new DaffyClient(process.env.DAFFY_API_KEY!);
-const daffyUsers =
-  process.env.SLACK_USERS_ALLOWED_TO_MANAGE_DAFFY_FUND!.split(",");
+const DAFFY_API_KEY = process.env.DAFFY_API_KEY;
+if (!DAFFY_API_KEY) throw new Error("DAFFY_API_KEY is not set.");
+const daffyClient = new DaffyClient(DAFFY_API_KEY);
+
+const SLACK_USERS_ALLOWED_TO_MANAGE_DAFFY_FUND =
+  process.env.SLACK_USERS_ALLOWED_TO_MANAGE_DAFFY_FUND;
+if (!SLACK_USERS_ALLOWED_TO_MANAGE_DAFFY_FUND)
+  throw new Error("SLACK_USERS_ALLOWED_TO_MANAGE_DAFFY_FUND is not set.");
+const daffyUsers = SLACK_USERS_ALLOWED_TO_MANAGE_DAFFY_FUND.split(",");
+
 console.log(
   `Slack users authorized to perform Daffy fund actions: ${daffyUsers}`
 );
