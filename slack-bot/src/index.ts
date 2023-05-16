@@ -35,9 +35,9 @@ app.command("/daffy", async ({ command, ack, respond }) => {
     }
 
     try {
-      const giftResponse = await daffyClient.sendGift(user, giftAmount);
+      const gift = await daffyClient.sendGift(user, giftAmount);
       await respond(
-        `Daffy gift of $${giftAmount} sent to ${user}. Claim it here ${giftResponse.url}`
+        `Daffy gift of $${giftAmount} sent to ${user}. Claim it here ${gift.url}`
       );
     } catch (error) {
       console.error("Error sending Daffy gift:", error);
