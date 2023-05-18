@@ -11,30 +11,55 @@ struct HomePageView: View {
     @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                VStack(alignment: .leading, spacing: 0) {
-                    Spacer()
-                        .frame(height: 58)
-                    Text("Welcome to \(viewModel.city)!")
-                        .font(Fonts.largeTitle)
-                        .padding(.bottom, 48)
-                    Text("You donated $\(20) to \("Monterey Bay Aquarium")")
-                        .font(Fonts.title3)
-                        .padding(.bottom, 48)
+        NavigationStack {
+            ZStack {
+                Color.background
+                    .edgesIgnoringSafeArea(.all)
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 0) {
+                                Spacer()
+                                    .frame(height: 58)
+                                Text("Welcome to \(viewModel.city)!")
+                                    .font(Fonts.largeTitle)
+                                    .padding(.bottom, 48)
+                                if let lastDonation = viewModel.donations.last {
+                                    
+                                    let amount = Text("$\(lastDonation.amount)")
+                                        .font(Fonts.title3Bold)
+                                    let nonProfit = Text(lastDonation.nonProfit.name)
+                                        .font(Fonts.title3Bold)
+                                    
+                                    Text("You donated \(amount) to \(nonProfit)")
+                                        .font(Fonts.title3)
+                                        .padding(.bottom, 48)
+                                }
+                            }
+                            .padding(.leading, 24)
+                            Spacer()
+                        }
+                        .onAppear {
+                            viewModel.requestLocation()
+                            viewModel.retrieveArticles()
+                        }
+                        Text("NEWS")
+                            .kerning(1.8)
+                            .font(Fonts.caption1)
+                            .padding(.horizontal, 20)
+                            .padding(.bottom, 12)
+                        ForEach(viewModel.newsArticles) { article in
+                            NavigationLink(destination: ArticleDetailView(article: article)) {
+                                NewsPreviewView(title: article.title, subtitle: article.content, imageURL: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg")
+                                    .frame(minHeight: 110)
+                                    .padding(.bottom, 12)
+                                    .padding(.horizontal, 16)
+                            }
+                        }
+                        Spacer()
+                    }
                 }
-                .padding(.leading, 24)
-                Spacer()
             }
-            .onAppear {
-                viewModel.requestLocation()
-                viewModel.retrieveArticles()
-            }
-            ForEach(viewModel.newsArticles) { article in
-                Text(article.title)
-                    .padding(.leading)
-            }
-            Spacer()
         }
     }
 }
