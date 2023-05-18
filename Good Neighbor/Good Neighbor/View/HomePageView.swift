@@ -11,17 +11,29 @@ struct HomePageView: View {
     @ObservedObject var viewModel: HomeViewModel
     
     var body: some View {
-        VStack {
-            Text("Welcome to \(viewModel.city)!")
-                .font(.title)
-                .padding(.vertical, 50)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                VStack(alignment: .leading, spacing: 0) {
+                    Spacer()
+                        .frame(height: 58)
+                    Text("Welcome to \(viewModel.city)!")
+                        .font(Fonts.largeTitle)
+                        .padding(.bottom, 48)
+                    Text("You donated $\(20) to \("Monterey Bay Aquarium")")
+                        .font(Fonts.title3)
+                        .padding(.bottom, 48)
+                }
+                .padding(.leading, 24)
+                Spacer()
+            }
+            .onAppear {
+                viewModel.requestLocation()
+            }
             ForEach(viewModel.newsArticles) { article in
                 Text(article.title)
+                    .padding(.leading)
             }
             Spacer()
-        }
-        .onAppear {
-            viewModel.requestLocation()
         }
     }
 }
