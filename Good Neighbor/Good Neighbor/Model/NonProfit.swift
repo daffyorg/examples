@@ -10,5 +10,8 @@ import Foundation
 public struct NonProfit: Codable {
     let id: Int
     let name: String
-    let ein: Int
+    let ein: String
+    let website: String
+    let city: String
+    let state: String
 }

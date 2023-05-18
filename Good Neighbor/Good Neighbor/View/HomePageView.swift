@@ -28,6 +28,7 @@ struct HomePageView: View {
             }
             .onAppear {
                 viewModel.requestLocation()
+                viewModel.retrieveArticles()
             }
             ForEach(viewModel.newsArticles) { article in
                 Text(article.title)
