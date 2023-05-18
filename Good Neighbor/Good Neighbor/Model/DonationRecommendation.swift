@@ -7,8 +7,9 @@
 
 import Foundation
 
-public struct DonationRecommendation: Codable {
+public struct DonationRecommendation: Codable, Identifiable {
     // Description of why this donation recommendation works for the article
+    public let id = UUID()
     let description: String
     let nonProfit: NonProfit
     // Donation $ amount options to suggest

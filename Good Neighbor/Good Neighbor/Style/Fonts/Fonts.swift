@@ -16,6 +16,7 @@ struct Fonts {
     static var footnote: Font = Font.footnote.weight(.regular)
     static var footnoteBold: Font = Font.footnote.weight(.semibold)
     static var subheadline: Font = Font.subheadline.weight(.regular)
+    static var subheadlineSFBold: Font = Font.subheadline.weight(.semibold)
     static var subheadlineBold: Font = Font.custom("Recoleta-Semibold", size: 15)
     static var callout: Font = Font.callout.weight(.regular)
     static var calloutBold: Font = Font.callout.weight(.semibold)
@@ -30,5 +31,5 @@ struct Fonts {
     static var title1: Font = Font.custom("Recoleta-Regular", size: 28)
     static var title1Bold: Font = Font.custom("Recoleta-Bold", size: 28)
     static var largeTitle: Font = Font.custom("Recoleta-Regular", size: 34)
-    static var largeTitleBold: Font = Font.custom("Recoleta-Bold", size: 34)
+    static var largeTitleBold: Font = Font.custom("Recoleta-SemiBold", size: 34)
 }

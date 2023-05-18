@@ -8,15 +8,44 @@
 import SwiftUI
 
 struct ArticleDetailView: View {
-    let article: NewsArticle
+    @ObservedObject var viewModel: ArticleDetailViewModel
     
     var body: some View {
-        Text(article.title)
+        ZStack {
+            Color.background2
+                .edgesIgnoringSafeArea(.all)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(viewModel.article.title)
+                        .font(Fonts.largeTitleBold)
+                        .foregroundColor(.neutral900)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 16)
+                    Text(viewModel.article.content)
+                        .foregroundColor(.neutral700)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 16)
+                    Text("Recommended Non-Profits".uppercased())
+                        .font(Fonts.caption1)
+                        .kerning(1.6)
+                        .foregroundColor(.neutral900)
+                        .padding(.horizontal, 24)
+                        .padding(.top, 48)
+                        .padding(.bottom, 12)
+                    ForEach(viewModel.article.donationRecommendations) {
+                        recommendation in
+                        DonationRecommendationView(title: recommendation.nonProfit.name, description: recommendation.description, donationAmounts: recommendation.donationAmounts, viewModel: viewModel)
+                            .padding(.horizontal, 16)
+                            .padding(.bottom, 12)
+                    }
+                }
+            }
+        }
     }
 }
 
 struct ArticleDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleDetailView(article: NewsArticle(title: "Test Article", content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a leo id turpis facilisis placerat. Integer ultrices risus et lectus sollicitudin finibus. Vivamus sed interdum odio. Donec congue auctor sapien at lobortis. Pellentesque consectetur odio ac bibendum consequat. Maecenas sagittis mauris et aliquam cursus. Nam mattis euismod metus, in facilisis justo gravida et. Sed feugiat auctor nisl, ac rhoncus libero consectetur ut. Sed sed lacus eu enim lobortis faucibus. Mauris sed faucibus metus, ac eleifend ex. Cras in suscipit magna, sit amet interdum elit. Quisque viverra mi eu ante blandit feugiat. Sed id elit nec purus ultrices efficitur.", city: "Salt Lake City, UT", donationRecommendations: [Mocks.mockDonationRecommendation]))
+        ArticleDetailView(viewModel: ArticleDetailViewModel(article: Mocks.mockNewsArticle1))
     }
 }

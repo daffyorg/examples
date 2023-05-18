@@ -36,6 +36,7 @@ struct HomePageView: View {
                                         .padding(.bottom, 48)
                                 }
                             }
+                            .foregroundColor(.neutral900)
                             .padding(.leading, 24)
                             Spacer()
                         }
@@ -46,10 +47,13 @@ struct HomePageView: View {
                         Text("NEWS")
                             .kerning(1.8)
                             .font(Fonts.caption1)
+                            .foregroundColor(.neutral900)
                             .padding(.horizontal, 20)
                             .padding(.bottom, 12)
                         ForEach(viewModel.newsArticles) { article in
-                            NavigationLink(destination: ArticleDetailView(article: article)) {
+                            let viewModel = ArticleDetailViewModel(article: article)
+                            
+                            NavigationLink(destination: ArticleDetailView(viewModel: viewModel)) {
                                 NewsPreviewView(title: article.title, subtitle: article.content, imageURL: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg")
                                     .frame(minHeight: 110)
                                     .padding(.bottom, 12)

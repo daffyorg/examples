@@ -13,29 +13,28 @@ struct NewsPreviewView: View {
     var imageURL: String
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 12)
-            .foregroundColor(.white)
-            .overlay(
-                HStack(spacing: 15) {
-                    loadImageFromURL()
-                        .resizable()
-                        .frame(width: 72, height: 72)
-                        .cornerRadius(8)
+        HStack(alignment: .top, spacing: 15) {
+                loadImageFromURL()
+                    .resizable()
+                    .frame(width: 72, height: 72)
+                    .cornerRadius(8)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .foregroundColor(.neutral900)
+                        .multilineTextAlignment(.leading)
+                        .font(Fonts.subheadlineBold)
                     
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(title)
-                            .foregroundColor(.black)
-                            .font(Fonts.subheadlineBold)
-                        
-                        Text(subtitle)
-                            .font(Fonts.footnote)
-                            .multilineTextAlignment(.leading)
-                            .foregroundColor(.secondary)
-                            .lineLimit(3)
-                    }
+                    Text(subtitle)
+                        .font(Fonts.footnote)
+                        .multilineTextAlignment(.leading)
+                        .foregroundColor(.neutral600)
+                        .lineLimit(3)
                 }
-                .padding(16)
-            )
+            }
+            .padding(16)
+            .background(Color.white)
+            .cornerRadius(12)
     }
     
     private func loadImageFromURL() -> Image {
@@ -51,6 +50,6 @@ struct NewsPreviewView: View {
 
 struct NewsPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        NewsPreviewView(title: "News Title", subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a leo id turpis facilisis placerat. Integer ultrices risus et lectus sollicitudin finibus. Vivamus sed interdum odio. Donec congue auctor sapien at lobortis. Pellentesque consectetur odio ac bibendum consequat. Maecenas sagittis mauris et aliquam cursus. Nam mattis euismod metus, in facilisis justo gravida et. Sed feugiat auctor nisl, ac rhoncus libero consectetur ut. Sed sed lacus eu enim lobortis faucibus. Mauris sed faucibus metus, ac eleifend ex. Cras in suscipit magna, sit amet interdum elit. Quisque viverra mi eu ante blandit feugiat. Sed id elit nec purus ultrices efficitur.", imageURL: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg")
+        NewsPreviewView(title: "Testing a really long news title that will wrap", subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a leo id turpis facilisis placerat. Integer ultrices risus et lectus sollicitudin finibus. Vivamus sed interdum odio. Donec congue auctor sapien at lobortis. Pellentesque consectetur odio ac bibendum consequat. Maecenas sagittis mauris et aliquam cursus. Nam mattis euismod metus, in facilisis justo gravida et. Sed feugiat auctor nisl, ac rhoncus libero consectetur ut. Sed sed lacus eu enim lobortis faucibus. Mauris sed faucibus metus, ac eleifend ex. Cras in suscipit magna, sit amet interdum elit. Quisque viverra mi eu ante blandit feugiat. Sed id elit nec purus ultrices efficitur.", imageURL: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg")
     }
 }
