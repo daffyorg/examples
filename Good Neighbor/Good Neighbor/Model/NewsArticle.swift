@@ -12,5 +12,5 @@ public struct NewsArticle: Identifiable {
     let title: String
     let content: String
     let city: String
-    let recommendedNonProfits: [NonProfit]
+    let donationRecommendations: [DonationRecommendation]
 }
