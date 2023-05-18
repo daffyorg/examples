@@ -1,6 +1,5 @@
 # Xcode
-#
-# .gitignore file for Xcode projects.
+## .gitignore file for Xcode projects.
 
 # User-specific settings
 xcuserdata/
@@ -18,12 +17,6 @@ Carthage/
 *.swp
 *.xcuserstate
 DerivedData/
-
-# Xcode workspace files
-*.xcworkspace
-
-# Xcode project files
-*.xcodeproj
 
 # Playgrounds
 *.playground
