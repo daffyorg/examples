@@ -11,7 +11,7 @@ public struct NonProfit: Codable {
     let id: Int
     let name: String
     let ein: String
-    let website: String
-    let city: String
-    let state: String
+    var website: String = ""
+    var city: String = ""
+    var state: String = ""
 }

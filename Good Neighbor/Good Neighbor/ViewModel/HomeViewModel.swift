@@ -15,9 +15,9 @@ class HomeViewModel: ObservableObject {
     
     @Published var newsArticles: [NewsArticle] = []
     @Published var city: String = "Salt Lake City"
-    @Published var donations: [Donation] = [
-        Mocks.mockDonation
-    ]
+    @Published var donations: [Donation] = [Mocks.mockDonation]
+    // TODO: Load actual user with retrieveMyUser
+    @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
     
     init(locationDataProvider: LocationDataProviderProtocol, daffyDataProvider: DaffyDataProviderProtocol) {
         self.locationDataProvider = locationDataProvider

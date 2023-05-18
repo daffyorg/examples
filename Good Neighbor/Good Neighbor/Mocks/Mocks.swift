@@ -9,7 +9,7 @@ import Foundation
 
 struct Mocks {
     static var mockNonProfit = NonProfit(id: 999, name: "Salt Lake City Homeless Shelter", ein: "20392", website: "https://www.wikipedia.org", city: "Salt Lake City", state: "UT")
-    static var mockDonation = Donation(amount: 50, date: Date.now, nonProfit: Mocks.mockNonProfit)
+    static var mockDonation = Donation(id: 999, nonProfit: Mocks.mockNonProfit, amount: 50, createdAt: Date.now)
     static var mockDonationRecommendation = DonationRecommendation(description: "Donate to the Salt Lake City Homeless Shelter to provide essential support, shelter, and resources to those experiencing homelessness. Your contribution helps meet basic needs, promote health and wellness, offer employment and housing assistance, foster community support, and break the cycle of homelessness. Make a lasting impact today.", nonProfit: Mocks.mockNonProfit, donationAmounts: [20, 40, 60])
     
     static var mockNewsArticle1 = NewsArticle(

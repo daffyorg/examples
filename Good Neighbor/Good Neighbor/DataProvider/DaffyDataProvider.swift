@@ -9,10 +9,15 @@ import Foundation
 import SystemConfiguration
 
 public protocol DaffyDataProviderProtocol {
-    
-    // TODO: Add API methods
-    
+    // MARK: Donations
+    func getDonation(user: DaffyUser, donationId: Int, completion:@escaping (Donation) -> ())
+    func getAllDonations(user: DaffyUser, completion:@escaping ([Donation]) -> ())
     func donate(nonProfit: NonProfit, amount: Int, completion:@escaping (Bool) -> ())
+    
+    // MARK: Users
+    func retrieveMyUser(completion:@escaping (DaffyUser) -> ())
+    
+    // MARK: Non profits
     func searchNonProfits(query: String, completion:@escaping ([NonProfit]) -> ())
     func getNonProfit(ein: String, completion:@escaping (NonProfit) -> ())
 }
@@ -21,21 +26,36 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     private let daffyOrgUrl: String = "https://api.daffy.org"
     private let apiKey: String? = Bundle.main.object(forInfoDictionaryKey: "DAFFY_API_KEY") as? String
     
-    // TODO: Implement API methods
+    func getDonation(user: DaffyUser, donationId: Int, completion:@escaping (Donation) -> ()) {
+        makeRequest(path: "/public/api/v1/users/\(user.id)/donations/\(donationId)", method: "GET", completion: completion)
+    }
     
+    func getAllDonations(user: DaffyUser, completion:@escaping ([Donation]) -> ()) {
+        makeRequest(path: "/public/api/v1/users/\(user.id)/donations", method: "GET") { (paginatedResponse: PaginatedResponse<Donation>) in
+                completion(paginatedResponse.items)
+        }
+    }
+    
+    // TODO: Implement create donation methodgi
     func donate(nonProfit: NonProfit, amount: Int, completion:@escaping (Bool) -> ()) {
         
     }
     
+    func retrieveMyUser(completion:@escaping (DaffyUser) -> ()) {
+        makeRequest(path: "/public/api/v1/users/me", method: "GET", completion: completion)
+    }
+    
     func searchNonProfits(query: String, completion:@escaping ([NonProfit]) -> ()) {
-        makeRequest(path: "/public/api/v1/non_profits?query=\(query)", method: "GET", completion: completion)
+        makeRequest(path: "/public/api/v1/non_profits?query=\(query)", method: "GET") { (paginatedResponse: PaginatedResponse<NonProfit>) in
+            completion(paginatedResponse.items)
+        }
     }
     
     func getNonProfit(ein: String, completion:@escaping (NonProfit) -> ()) {
         makeRequest(path: "/public/api/v1/non_profits/\(ein)", method: "GET", completion: completion)
     }
     
-    private func makeRequest<T : Decodable>(path: String, method: String, completion:@escaping (T) -> ()) {
+    private func makeRequest<T : Codable>(path: String, method: String, completion:@escaping (T) -> ()) {
         let urlBuilder = URLComponents(string: "\(daffyOrgUrl)\(path)")
         
         guard let url = urlBuilder?.url, let apiKey = apiKey else {
@@ -65,4 +85,15 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
             }
         }.resume()
     }
+}
+
+private struct PaginatedResponse<T : Codable>: Codable {
+    let meta: Page
+    let items: [T]
+}
+
+private struct Page: Codable {
+    let count: Int
+    let page: Int
+    let last: Int
 }
