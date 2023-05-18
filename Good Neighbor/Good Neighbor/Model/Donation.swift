@@ -7,9 +7,10 @@
 
 import Foundation
 
-public struct Donation {
-    let id = UUID()
-    let amount: Int
-    let date: Date
+public struct Donation: Codable {
+    let id: Int
     let nonProfit: NonProfit
+    let amount: Int
+    var note: String = ""
+    let createdAt: Date
 }
