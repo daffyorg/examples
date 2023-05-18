@@ -38,6 +38,9 @@ class HomeViewModel: ObservableObject {
     ]
     
     @Published var city: String = "Salt Lake City"
+    @Published var donations: [Donation] = [
+        Donation(amount: 50, date: Date.now, nonProfit: NonProfit(id: 999, name: "Salt Lake City Homeless Shelter", ein: 20392))
+    ]
     
     init(locationDataProvider: LocationDataProviderProtocol, daffyDataProvider: DaffyDataProviderProtocol) {
         self.locationDataProvider = locationDataProvider
