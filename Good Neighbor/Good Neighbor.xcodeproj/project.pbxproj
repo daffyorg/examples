@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4EFBBAFB2A1690190071AC3B /* DonationRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBBAFA2A1690190071AC3B /* DonationRecommendation.swift */; };
+		4EFBBAFD2A16B3670071AC3B /* Donation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBBAFC2A16B3670071AC3B /* Donation.swift */; };
+		4EFBBB032A16B7EA0071AC3B /* DaffyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBBB022A16B7EA0071AC3B /* DaffyUser.swift */; };
 		B84AC3412A15819F00E2A21D /* Good_NeighborApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84AC3402A15819F00E2A21D /* Good_NeighborApp.swift */; };
 		B84AC3432A15819F00E2A21D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84AC3422A15819F00E2A21D /* ContentView.swift */; };
 		B84AC3452A1581A000E2A21D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B84AC3442A1581A000E2A21D /* Assets.xcassets */; };
@@ -44,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		4EFBBAFA2A1690190071AC3B /* DonationRecommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationRecommendation.swift; sourceTree = "<group>"; };
+		4EFBBAFC2A16B3670071AC3B /* Donation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Donation.swift; sourceTree = "<group>"; };
+		4EFBBB022A16B7EA0071AC3B /* DaffyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaffyUser.swift; sourceTree = "<group>"; };
 		B84AC33D2A15819F00E2A21D /* Good Neighbor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Good Neighbor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84AC3402A15819F00E2A21D /* Good_NeighborApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Good_NeighborApp.swift; sourceTree = "<group>"; };
 		B84AC3422A15819F00E2A21D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 				B84AC3582A1588A300E2A21D /* NewsArticle.swift */,
 				B84AC3842A16BFDE00E2A21D /* Donation.swift */,
 				4EFBBAFA2A1690190071AC3B /* DonationRecommendation.swift */,
+				4EFBBAFC2A16B3670071AC3B /* Donation.swift */,
+				4EFBBB022A16B7EA0071AC3B /* DaffyUser.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -311,9 +317,11 @@
 				B84AC3832A16B83800E2A21D /* NewsPreviewView.swift in Sources */,
 				B84AC38E2A16E37300E2A21D /* ArticleDetailViewModel.swift in Sources */,
 				B84AC3432A15819F00E2A21D /* ContentView.swift in Sources */,
+				4EFBBB032A16B7EA0071AC3B /* DaffyUser.swift in Sources */,
 				4EFBBAFB2A1690190071AC3B /* DonationRecommendation.swift in Sources */,
 				B84AC35D2A1589D600E2A21D /* HomeViewModel.swift in Sources */,
 				B84AC3552A15823F00E2A21D /* DaffyDataProvider.swift in Sources */,
+				4EFBBAFD2A16B3670071AC3B /* Donation.swift in Sources */,
 				B84AC3412A15819F00E2A21D /* Good_NeighborApp.swift in Sources */,
 				B84AC35B2A15897400E2A21D /* HomePageView.swift in Sources */,
 				B84AC3852A16BFDE00E2A21D /* Donation.swift in Sources */,
