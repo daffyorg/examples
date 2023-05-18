@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4EFBBAFB2A1690190071AC3B /* DonationRecommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFBBAFA2A1690190071AC3B /* DonationRecommendation.swift */; };
 		B84AC3412A15819F00E2A21D /* Good_NeighborApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84AC3402A15819F00E2A21D /* Good_NeighborApp.swift */; };
 		B84AC3432A15819F00E2A21D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84AC3422A15819F00E2A21D /* ContentView.swift */; };
 		B84AC3452A1581A000E2A21D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B84AC3442A1581A000E2A21D /* Assets.xcassets */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4EFBBAFA2A1690190071AC3B /* DonationRecommendation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationRecommendation.swift; sourceTree = "<group>"; };
 		B84AC33D2A15819F00E2A21D /* Good Neighbor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Good Neighbor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84AC3402A15819F00E2A21D /* Good_NeighborApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Good_NeighborApp.swift; sourceTree = "<group>"; };
 		B84AC3422A15819F00E2A21D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				B84AC3562A15882A00E2A21D /* NonProfit.swift */,
 				B84AC3582A1588A300E2A21D /* NewsArticle.swift */,
 				B84AC3842A16BFDE00E2A21D /* Donation.swift */,
+				4EFBBAFA2A1690190071AC3B /* DonationRecommendation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				B84AC3592A1588A300E2A21D /* NewsArticle.swift in Sources */,
 				B84AC3832A16B83800E2A21D /* NewsPreviewView.swift in Sources */,
 				B84AC3432A15819F00E2A21D /* ContentView.swift in Sources */,
+				4EFBBAFB2A1690190071AC3B /* DonationRecommendation.swift in Sources */,
 				B84AC35D2A1589D600E2A21D /* HomeViewModel.swift in Sources */,
 				B84AC3552A15823F00E2A21D /* DaffyDataProvider.swift in Sources */,
 				B84AC3412A15819F00E2A21D /* Good_NeighborApp.swift in Sources */,

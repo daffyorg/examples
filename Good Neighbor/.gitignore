@@ -1,5 +1,6 @@
 # Xcode
 ## .gitignore file for Xcode projects.
+.DS_Store
 
 # User-specific settings
 xcuserdata/

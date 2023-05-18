@@ -41,6 +41,7 @@ struct HomePageView: View {
                         }
                         .onAppear {
                             viewModel.requestLocation()
+                            viewModel.retrieveArticles()
                         }
                         Text("NEWS")
                             .kerning(1.8)
