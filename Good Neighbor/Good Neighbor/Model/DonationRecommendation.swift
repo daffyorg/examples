@@ -11,7 +11,7 @@ public struct DonationRecommendation: Codable, Identifiable {
     // Description of why this donation recommendation works for the article
     public let id = UUID()
     let description: String
-    let nonProfit: NonProfit
+    let nonProfitEIN: String
     // Donation $ amount options to suggest
     let donationAmounts: [Int]
 }

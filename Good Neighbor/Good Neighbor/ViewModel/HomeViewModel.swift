@@ -15,7 +15,7 @@ class HomeViewModel: ObservableObject {
     
     @Published var newsArticles: [NewsArticle] = []
     @Published var city: String = "Salt Lake City"
-    @Published var donations: [Donation] = [Mocks.mockDonation]
+    @Published var donations: [Donation] = []
     // TODO: Load actual user with retrieveMyUser
     @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
     
@@ -28,38 +28,36 @@ class HomeViewModel: ObservableObject {
             .sink { location in
                 if let city = location.city {
                     self.city = city
+                    self.retrieveArticles(city: city)
+                    self.retrieveDonations(city: city)
                 }
             }.store(in: &subscribers)
     }
     
-    func retrieveArticles() {
-        self.newsArticles = [
-//            NewsArticle(
-//                title: "Bring the kids to the annual Duckling Day Parade on Boston Common",
-//                content:
-//                    """
-//                    Duckling Day returns to Boston Common and the Public Garden on Sunday, May 14, celebrating Mother’s Day and Robert McCloskey’s beloved book “Make Way for Ducklings.” For over 30 years, hundreds of children dressed like characters from the book have headed to the Common with their families for a day of children’s activities, parading, and warm weather fun.
-//
-//                    Festivities kick off at 10 a.m. on Boston Common near the Parkman Bandstand with “Playtime on the Common.” Children can play interactive circus games with Esh Circus Arts, see a magician, check out the “Make Way for Ducklings” reading station, and visit with the Harvard University Marching Band.
-//
-//                    The parade begins at noon, marching from the bandstand through the Common and Public Garden and ending at the “Make Way for Ducklings” statues. Last year’s Duckling Day was the biggest one yet, with thousands attending the sold-out event.
-//
-//                    Registration costs $35 per child and includes a goodie back full of Duckling Day-themed gifts. Families are encouraged to bring a picnic lunch to enjoy in the Public Garden after the festivities end.
-//                    """,
-//                city: "Boston, MA",
-//                donationRecommendations: [
-//                    DonationRecommendation(
-//                        description:
-//                        """
-//                        The mission of the Friends of the Public Garden is to preserve, protect and enhance Boston's first public parks - the Boston Common, the Public Garden and the Commonwealth Avenue Mall - in partnership with the City of Boston's Parks and Recreation Department.
-//                        """,
-//                        nonProfit: retrieveNonProfit(ein: "237451432")!,
-//                        donationAmounts: [20, 40, 100]
-//                    )
-//                ]
-//            ),
-            Mocks.mockNewsArticle1
-        ]
+    func retrieveDonations(city: String) {
+        switch city {
+        case "Salt Lake City":
+            self.donations = [Mocks.SaltLakeCity.mockDonation]
+        case "Boston":
+            self.donations = [Mocks.Boston.mockDonation]
+        case "San Francisco":
+            self.donations = [Mocks.SanFrancisco.mockDonation]
+        default:
+            self.donations = []
+        }
+    }
+    
+    func retrieveArticles(city: String) {
+        switch city {
+        case "Salt Lake City":
+            self.newsArticles = [Mocks.SaltLakeCity.mockNewsArticle1]
+        case "Boston":
+            self.newsArticles = [Mocks.Boston.mockNewsArticle1]
+        case "San Francisco":
+            self.newsArticles = [Mocks.SanFrancisco.mockNewsArticle1]
+        default:
+            self.newsArticles = []
+        }
     }
     
     func requestLocation() {
