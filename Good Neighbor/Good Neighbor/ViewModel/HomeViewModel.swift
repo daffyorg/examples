@@ -56,7 +56,7 @@ class HomeViewModel: ObservableObject {
                     donation.nonProfit.state == state && donation.nonProfit.city == city
                 }
                 
-                self.donations = donationsInLocation
+                self.donations = donationsInLocation.sorted(by: { $0.createdAt.compare($1.createdAt) == .orderedAscending })
             case .failure(let failure):
                 print("Failed to get donations: \(failure)")
             }

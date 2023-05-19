@@ -39,6 +39,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         makeRequest(path: "/public/api/v1/users/\(user.id)/donations/\(donationId)", method: "GET", completion: completion)
     }
     
+    // TODO: Implement get donation method
     func getAllDonations(user: DaffyUser, completion:@escaping (Result<[Donation], Error>) -> ()) {
         completion(.success(DaffyDataProvider.donations))
     }
@@ -49,7 +50,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         
         // Artificial 1 second delay to simulate network call
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            print("Creating fake donation: \(donation)")
+            print("Created fake donation: \(donation)")
             DaffyDataProvider.donations.append(donation)
             completion(.success(donation))
         }
