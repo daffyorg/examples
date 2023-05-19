@@ -98,6 +98,6 @@ struct DonationPill: View {
 
 struct DonationRecommendationView_Previews: PreviewProvider {
     static var previews: some View {
-        DonationRecommendationView(title: Mocks.mockDonationRecommendation.nonProfit.name, description: Mocks.mockDonationRecommendation.description, donationAmounts: Mocks.mockDonationRecommendation.donationAmounts, nonProfit: Mocks.mockNonProfit, viewModel: ArticleDetailViewModel(article: Mocks.mockNewsArticle1))
+        DonationRecommendationView(title: Mocks.SaltLakeCity.mockNonProfit.name, description: Mocks.SaltLakeCity.mockDonationRecommendation.description, donationAmounts: Mocks.SaltLakeCity.mockDonationRecommendation.donationAmounts, nonProfit: Mocks.SaltLakeCity.mockNonProfit, viewModel: ArticleDetailViewModel(article: Mocks.SaltLakeCity.mockNewsArticle1, daffyDataProvider: DaffyDataProvider()))
     }
 }

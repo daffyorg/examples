@@ -15,12 +15,31 @@ enum DonationCompletionStatus: Equatable {
 }
 
 class ArticleDetailViewModel: ObservableObject {
+    let daffyDataProvider: DaffyDataProviderProtocol
+
     @Published var article: NewsArticle
     @Published var shouldShowAlert = false
     @Published var donationCompletionStatus: DonationCompletionStatus = .needsConfirmation
+    @Published var nonProfits: [String: NonProfit] = [:]
     
-    init(article: NewsArticle) {
+    init(article: NewsArticle, daffyDataProvider: DaffyDataProviderProtocol) {
         self.article = article
+        self.daffyDataProvider = daffyDataProvider
+        
+        fetchData()
+    }
+    
+    func fetchData() {
+        article.donationRecommendations.forEach { recommendation in
+            retrieveNonProfitInformation(ein: recommendation.nonProfitEIN)
+        }
+    }
+    
+    func retrieveNonProfitInformation(ein: String) {
+        daffyDataProvider.getNonProfit(ein: ein) { nonProfit in
+            print("Retrieved non profit: \(nonProfit)")
+            self.nonProfits[ein] = nonProfit
+        }
     }
     
     func donate(_ amount: Int, nonProfit: NonProfit) {

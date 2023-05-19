@@ -42,7 +42,6 @@ struct HomePageView: View {
                         }
                         .onAppear {
                             viewModel.requestLocation()
-                            viewModel.retrieveArticles()
                         }
                         Text("NEWS")
                             .kerning(1.8)
@@ -51,7 +50,7 @@ struct HomePageView: View {
                             .padding(.horizontal, 20)
                             .padding(.bottom, 12)
                         ForEach(viewModel.newsArticles) { article in
-                            let viewModel = ArticleDetailViewModel(article: article)
+                            let viewModel = ArticleDetailViewModel(article: article, daffyDataProvider: DaffyDataProvider())
                             
                             NavigationLink(destination: ArticleDetailView(viewModel: viewModel)) {
                                 NewsPreviewView(title: article.title, subtitle: article.content, imageURL: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg")
