@@ -35,8 +35,6 @@ class HomeViewModel: ObservableObject {
                 }
             }.store(in: &subscribers)
         
-        UserDefaults.standard.removeObject(forKey: "apiKey")
-        
         self.retrieveAPIKey()
     }
     
