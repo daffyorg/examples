@@ -63,15 +63,4 @@ class HomeViewModel: ObservableObject {
     func requestLocation() {
         locationDataProvider.requestLocation()
     }
-    
-    func retrieveNonProfit(ein: String) -> NonProfit? {
-        var result: NonProfit? = nil
-        
-        daffyDataProvider.getNonProfit(ein: ein) { nonProfit in
-            print("Received non-profit: \(nonProfit)")
-            result = nonProfit
-        }
-        
-        return result
-    }
 }
