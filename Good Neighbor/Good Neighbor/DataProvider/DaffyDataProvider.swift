@@ -36,7 +36,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         }
     }
     
-    // TODO: Implement create donation methodgi
+    // TODO: Implement create donation method
     func donate(nonProfit: NonProfit, amount: Int, completion:@escaping (Bool) -> ()) {
         
     }

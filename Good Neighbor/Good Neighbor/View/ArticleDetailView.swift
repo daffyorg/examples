@@ -32,9 +32,8 @@ struct ArticleDetailView: View {
                         .padding(.horizontal, 24)
                         .padding(.top, 48)
                         .padding(.bottom, 12)
-                    ForEach(viewModel.article.donationRecommendations) {
-                        recommendation in
-                        DonationRecommendationView(title: recommendation.nonProfit.name, description: recommendation.description, donationAmounts: recommendation.donationAmounts, nonProfit: recommendation.nonProfit, viewModel: viewModel)
+                    ForEach(viewModel.article.donationRecommendations) { recommendation in
+                        DonationRecommendationView(title: viewModel.nonProfits[recommendation.nonProfitEIN]!.name, description: recommendation.description, donationAmounts: recommendation.donationAmounts, nonProfit: viewModel.nonProfits[recommendation.nonProfitEIN]!, viewModel: viewModel)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 12)
                     }
@@ -46,6 +45,11 @@ struct ArticleDetailView: View {
 
 struct ArticleDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ArticleDetailView(viewModel: ArticleDetailViewModel(article: Mocks.mockNewsArticle1))
+        ArticleDetailView(
+            viewModel: ArticleDetailViewModel(
+                article: Mocks.Boston.mockNewsArticle1,
+                daffyDataProvider: DaffyDataProvider()
+            )
+        )
     }
 }
