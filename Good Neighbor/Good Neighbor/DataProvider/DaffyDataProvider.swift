@@ -7,9 +7,12 @@
 
 import Foundation
 import SystemConfiguration
+import Combine
 
 public protocol DaffyDataProviderProtocol {
     // MARK: Set API key
+    var donations: CurrentValueSubject<[Donation], Never> { get }
+    
     func setAPIkey(_ key: String)
     
     // MARK: Donations
@@ -29,7 +32,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     
     private let daffyOrgUrl: String = "https://api.daffy.org"
     private var apiKey: String? = UserDefaults.standard.string(forKey: "apiKey")
-    private static var donations: [Donation] = []
+    var donations: CurrentValueSubject<[Donation], Never> = CurrentValueSubject([])
     
     func setAPIkey(_ key: String) {
         self.apiKey = key
@@ -41,7 +44,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     
     // TODO: Implement get donation method
     func getAllDonations(user: DaffyUser, completion:@escaping (Result<[Donation], Error>) -> ()) {
-        completion(.success(DaffyDataProvider.donations))
+        completion(.success(donations.value))
     }
     
     // TODO: Implement create donation method
@@ -49,9 +52,12 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         let donation = Donation(id: Int.random(in: 1..<200), nonProfit: nonProfit, amount: amount, note: "For upholding the community", createdAt: Date.now)
         
         // Artificial 1 second delay to simulate network call
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+            guard let self = self else { return }
             print("Created fake donation: \(donation)")
-            DaffyDataProvider.donations.append(donation)
+            var newDonations = self.donations.value
+            newDonations.append(donation)
+            self.donations.send(newDonations)
             completion(.success(donation))
         }
     }

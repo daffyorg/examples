@@ -21,7 +21,7 @@ struct HomePageView: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
                                     .frame(height: 58)
-                                Text(viewModel.getTitle())
+                                Text(viewModel.title ?? "Welcome!")
                                     .font(Fonts.largeTitle)
                                     .padding(.bottom, 48)
                                 if let lastDonation = viewModel.donations.last {
@@ -41,7 +41,7 @@ struct HomePageView: View {
                             Spacer()
                         }
                         .onAppear {
-                            viewModel.reload()
+                            viewModel.requestLocationUpdate()
                         }
                         Text("NEWS")
                             .kerning(1.8)

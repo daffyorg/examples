@@ -11,14 +11,16 @@ import Combine
 class HomeViewModel: ObservableObject {
     let locationDataProvider: LocationDataProviderProtocol
     let daffyDataProvider: DaffyDataProviderProtocol
+    var timer: Timer?
     var subscribers: Set<AnyCancellable> = []
     
     @Published var newsArticles: [NewsArticle] = []
-    @Published var city: String = "Salt Lake City"
+    @Published var city: String = ""
     @Published var needsAPIKey: Bool = false
-    @Published var state: String = "UT"
+    @Published var state: String = ""
     @Published var donations: [Donation] = []
     @Published var apiKeyError: Error?
+    @Published var title: String?
     @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
     
     init(locationDataProvider: LocationDataProviderProtocol, daffyDataProvider: DaffyDataProviderProtocol) {
@@ -29,18 +31,33 @@ class HomeViewModel: ObservableObject {
             .compactMap( { $0 } )
             .sink { location in
                 if let city = location.city, let state = location.state {
-                    self.city = city
-                    self.state = state
-                    self.retrieveArticles(city: city)
-                    self.retrieveDonations(city: city, state: state)
+                    if city != self.city, state != self.state {
+                        self.city = city
+                        self.state = state
+                        self.retrieveArticles(city: city)
+                        self.retrieveDonations(city: city, state: state)
+                    }
                 }
             }.store(in: &subscribers)
         
+        $user.sink { [weak self] user in
+            self?.getTitle(user: user)
+        }.store(in: &subscribers)
+        
+        daffyDataProvider.donations
+            .sink { [weak self] donations in
+                self?.donations = donations
+            }.store(in: &subscribers)
+        
         self.retrieveAPIKey()
+        self.requestLocationPermissions()
+        self.setLocationTimerUpdate()
+        self.reload()
     }
     
     func reload() {
-        requestLocation()
+        getUser()
+        requestLocationUpdate()
         retrieveDonations(city: self.city, state: self.state)
         retrieveArticles(city: self.city)
     }
@@ -73,14 +90,17 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func requestLocation() {
-        locationDataProvider.requestLocation()
+    func requestLocationPermissions() {
+        locationDataProvider.requestLocationPermissions()
+    }
+    
+    func requestLocationUpdate() {
+        locationDataProvider.requestLocationUpdate()
     }
     
     func retrieveAPIKey() {
         if let storedApiKey = UserDefaults.standard.string(forKey: "apiKey") {
             daffyDataProvider.setAPIkey(storedApiKey)
-            self.requestLocation()
         } else {
             needsAPIKey = true
         }
@@ -102,11 +122,29 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func getTitle() -> String {
+    func getUser() {
+        daffyDataProvider.retrieveMyUser { result in
+            switch result {
+            case .failure:
+                break
+            case let .success(user):
+                self.user = user
+            }
+        }
+    }
+    
+    func getTitle(user: DaffyUser) {
         guard let name = user.name.components(separatedBy: " ").first else {
-            return "Welcome to \(city)!"
+            title = "Welcome to \(city)!"
+            return
         }
         
-        return "Welcome to \(city), \(name)!"
+        title = "Welcome to \(city), \(name)!"
+    }
+    
+    func setLocationTimerUpdate() {
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
+            self?.requestLocationUpdate()
+        }
     }
 }

@@ -19,15 +19,13 @@ public protocol LocationDataProviderProtocol {
     
     var location: AnyPublisher<Location?, Never> { get }
     
-    func requestLocation()
+    func requestLocationPermissions()
     
-    // TODO: Add API methods
+    func requestLocationUpdate()
     
 }
 
 class LocationDataProvider: NSObject, CLLocationManagerDelegate, LocationDataProviderProtocol {
-    
-    // TODO: Implement API methods
    
     var location: AnyPublisher<Location?, Never> {
         locationSubject.eraseToAnyPublisher()
@@ -41,13 +39,19 @@ class LocationDataProvider: NSObject, CLLocationManagerDelegate, LocationDataPro
         locationManager.delegate = self
     }
     
-    func requestLocation() {
+    func requestLocationPermissions() {
         locationManager.requestAlwaysAuthorization()
+    }
+    
+    func requestLocationUpdate() {
+        locationManager.requestLocation()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
-        case .authorizedAlways, .authorizedWhenInUse, .notDetermined:
+        case .notDetermined:
+            self.requestLocationPermissions()
+        case .authorizedAlways, .authorizedWhenInUse:
             locationManager.requestLocation()
         default:
             break
@@ -56,7 +60,6 @@ class LocationDataProvider: NSObject, CLLocationManagerDelegate, LocationDataPro
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
         if let latestLocation = locations.last {
             geocoder.reverseGeocodeLocation(latestLocation) { placemark, error in
                 if let placemark = placemark?.last {

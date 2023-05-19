@@ -33,7 +33,7 @@ struct ArticleDetailView: View {
                         .padding(.top, 48)
                         .padding(.bottom, 12)
                     ForEach(viewModel.article.donationRecommendations) { recommendation in
-                        DonationRecommendationView(title: viewModel.nonProfits[recommendation.nonProfitEIN]!.name, description: recommendation.description, donationAmounts: recommendation.donationAmounts, nonProfit: viewModel.nonProfits[recommendation.nonProfitEIN]!, viewModel: viewModel)
+                        DonationRecommendationView(title: recommendation.nonProfit.name, description: recommendation.description, donationAmounts: recommendation.donationAmounts, nonProfit: recommendation.nonProfit, viewModel: viewModel)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 12)
                     }

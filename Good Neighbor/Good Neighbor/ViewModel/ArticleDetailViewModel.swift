@@ -18,31 +18,27 @@ class ArticleDetailViewModel: ObservableObject {
     let daffyDataProvider: DaffyDataProviderProtocol
 
     @Published var article: NewsArticle
+    @Published var donationRecommendations: [DonationRecommendation]
     @Published var shouldShowAlert = false
     @Published var donationCompletionStatus: DonationCompletionStatus = .needsConfirmation
-    @Published var nonProfits: [String: NonProfit] = [:]
     
     init(article: NewsArticle, daffyDataProvider: DaffyDataProviderProtocol) {
         self.article = article
         self.daffyDataProvider = daffyDataProvider
+        self.donationRecommendations = article.donationRecommendations
         
-        fetchData()
+        getNonProfitData()
     }
     
-    func fetchData() {
-        article.donationRecommendations.forEach { recommendation in
-            retrieveNonProfitInformation(ein: recommendation.nonProfitEIN)
-        }
-    }
-    
-    func retrieveNonProfitInformation(ein: String) {
-        daffyDataProvider.getNonProfit(ein: ein) { result in
-            switch result {
-            case .success(let success):
-                print("Retrieved non profit: \(success)")
-                self.nonProfits[ein] = success
-            case .failure(let failure):
-                print("Failed to retrieve non profits: \(failure)")
+    func getNonProfitData() {
+        article.nonProfitEINList.forEach { ein in
+            daffyDataProvider.getNonProfit(ein: ein) { [weak self] result in
+                switch result {
+                case let .success(nonProfit):
+                    self?.article.createDonationRecommendation(nonProfit: nonProfit)
+                case .failure:
+                    break
+                }
             }
         }
     }
@@ -54,7 +50,7 @@ class ArticleDetailViewModel: ObservableObject {
             case .success(let donation):
                 self?.donationCompletionStatus = .success(message: "Successfully donated $\(donation.amount) to \(donation.nonProfit.name)!")
                 self?.shouldShowAlert = true
-            case .failure(let failure):
+            case .failure:
                 self?.shouldShowAlert = false
                 self?.donationCompletionStatus = .failure(title: "Failed to make donation", errorMessage: "Unable to make a donation to \(nonProfit.name) for $\(amount). Please try again later.")
             }
