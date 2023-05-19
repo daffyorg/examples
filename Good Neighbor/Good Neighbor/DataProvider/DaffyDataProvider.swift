@@ -29,6 +29,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     
     private let daffyOrgUrl: String = "https://api.daffy.org"
     private var apiKey: String? = UserDefaults.standard.string(forKey: "apiKey")
+    private static var donations: [Donation] = []
     
     func setAPIkey(_ key: String) {
         self.apiKey = key
@@ -38,20 +39,21 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         makeRequest(path: "/public/api/v1/users/\(user.id)/donations/\(donationId)", method: "GET", completion: completion)
     }
     
+    // TODO: Implement get donation method
     func getAllDonations(user: DaffyUser, completion:@escaping (Result<[Donation], Error>) -> ()) {
-        makeRequest(path: "/public/api/v1/users/\(user.id)/donations", method: "GET") { (result: Result<PaginatedResponse<Donation>, Error>) in
-            switch result {
-            case .success(let success):
-                completion(.success(success.items))
-            case .failure(let failure):
-                completion(.failure(failure))
-            }
-        }
+        completion(.success(DaffyDataProvider.donations))
     }
     
     // TODO: Implement create donation method
     func donate(nonProfit: NonProfit, amount: Int, completion:@escaping (Result<Donation, Error>) -> ()) {
+        let donation = Donation(id: Int.random(in: 1..<200), nonProfit: nonProfit, amount: amount, note: "For upholding the community", createdAt: Date.now)
         
+        // Artificial 1 second delay to simulate network call
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            print("Created fake donation: \(donation)")
+            DaffyDataProvider.donations.append(donation)
+            completion(.success(donation))
+        }
     }
     
     func retrieveMyUser(completion:@escaping (Result<DaffyUser, Error>) -> ()) {

@@ -41,7 +41,7 @@ struct HomePageView: View {
                             Spacer()
                         }
                         .onAppear {
-                            viewModel.requestLocation()
+                            viewModel.reload()
                         }
                         Text("NEWS")
                             .kerning(1.8)

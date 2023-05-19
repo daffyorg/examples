@@ -49,12 +49,17 @@ class ArticleDetailViewModel: ObservableObject {
     
     func donate(_ amount: Int, nonProfit: NonProfit) {
         donationCompletionStatus = .sendingRequest
-        // Artificial 2 second delay to simulate network call
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-                    
-            self?.donationCompletionStatus = .success(message: "Successfully donated $\(amount) to \(nonProfit.name)!")
-            //        donationCompletionStatus = .failure(title: "There was an error", errorMessage: "Donation could not be completed because you do not have sufficient funds")
-            self?.shouldShowAlert = true
+        daffyDataProvider.donate(nonProfit: nonProfit, amount: amount) { [weak self] result in
+            switch result {
+            case .success(let donation):
+                self?.donationCompletionStatus = .success(message: "Successfully donated $\(donation.amount) to \(donation.nonProfit.name)!")
+                //        donationCompletionStatus = .failure(title: "There was an error", errorMessage: "Donation could not be completed because you do not have sufficient funds")
+                self?.shouldShowAlert = true
+            case .failure(let failure):
+                self?.shouldShowAlert = false
+                self?.donationCompletionStatus = .failure(title: "Failed to make donation", errorMessage: "Unable to make a donation to \(nonProfit.name) for $\(amount). Please try again later.")
+            }
+            
         }
     }
 }
