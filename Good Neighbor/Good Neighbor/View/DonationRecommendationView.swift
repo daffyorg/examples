@@ -11,8 +11,9 @@ struct DonationRecommendationView: View {
     var title: String
     var description: String
     let donationAmounts: [Int]
-    
-    var viewModel: ArticleDetailViewModel
+    let nonProfit: NonProfit
+    @ObservedObject var viewModel: ArticleDetailViewModel
+    @State var selectedAmount: Int?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -30,7 +31,10 @@ struct DonationRecommendationView: View {
                     .foregroundColor(.neutral700)
                     .font(Fonts.footnoteBold)
                 ForEach(donationAmounts, id: \.self) { amount in
-                    DonationPill(amount: amount, action: { viewModel.donate(amount) })
+                    DonationPill(amount: amount, action: {
+                        selectedAmount = amount
+                        viewModel.shouldShowAlert = true
+                    })
                 }
             }
             .padding(.top, 12)
@@ -39,7 +43,36 @@ struct DonationRecommendationView: View {
         .padding(.vertical, 20)
         .background(Color.background)
         .cornerRadius(12)
-        
+        .alert(isPresented: $viewModel.shouldShowAlert) {
+            var alertTitle = ""
+            var alertMessage = ""
+            switch viewModel.donationCompletionStatus {
+            case .needsConfirmation, .sendingRequest:
+                return Alert(
+                    title: Text("Confirm Donation"),
+                    message: Text("Please confirm a donation amount of $\(selectedAmount ?? 0) to \(title)"),
+                    primaryButton: .default(Text("Donate"), action: {
+                        if let selectedAmount {
+                            viewModel.donate(selectedAmount, nonProfit: nonProfit)
+                        }
+                    }),
+                    secondaryButton: .cancel()
+                )
+            case let .failure(title: title, errorMessage: errorMessage):
+                alertTitle = title
+                alertMessage = errorMessage
+            case let .success(title: title, message: message):
+                alertTitle = title
+                alertMessage = message
+            }
+            return Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage),
+                dismissButton: .cancel(Text("Dismiss"), action: {
+                    viewModel.donationCompletionStatus = .needsConfirmation
+                })
+            )
+        }
     }
 }
 
@@ -65,6 +98,6 @@ struct DonationPill: View {
 
 struct DonationRecommendationView_Previews: PreviewProvider {
     static var previews: some View {
-        DonationRecommendationView(title: Mocks.mockDonationRecommendation.nonProfit.name, description: Mocks.mockDonationRecommendation.description, donationAmounts: Mocks.mockDonationRecommendation.donationAmounts, viewModel: ArticleDetailViewModel(article: Mocks.mockNewsArticle1))
+        DonationRecommendationView(title: Mocks.mockDonationRecommendation.nonProfit.name, description: Mocks.mockDonationRecommendation.description, donationAmounts: Mocks.mockDonationRecommendation.donationAmounts, nonProfit: Mocks.mockNonProfit, viewModel: ArticleDetailViewModel(article: Mocks.mockNewsArticle1))
     }
 }
