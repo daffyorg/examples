@@ -69,14 +69,18 @@ class HomeViewModel: ObservableObject {
     
     func retrieveAPIKey() {
         if let storedApiKey = UserDefaults.standard.string(forKey: "apiKey") {
-            // store the API key for API calls
+            daffyDataProvider.setAPIkey(storedApiKey)
+            self.requestLocation()
         } else {
             needsAPIKey = true
         }
     }
     
     func handleAPIKey(_ apiKey: String) {
-        // Validate API key
-        // Store API key to UserDefaults
+        daffyDataProvider.setAPIkey(apiKey)
+        daffyDataProvider.retrieveMyUser { [weak self] _ in
+            UserDefaults.standard.set(apiKey, forKey: "apiKey")
+            self?.needsAPIKey = false
+        }
     }
 }

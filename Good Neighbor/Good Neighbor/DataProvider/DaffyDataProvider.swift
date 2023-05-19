@@ -9,6 +9,9 @@ import Foundation
 import SystemConfiguration
 
 public protocol DaffyDataProviderProtocol {
+    // MARK: Set API key
+    func setAPIkey(_ key: String)
+    
     // MARK: Donations
     func getDonation(user: DaffyUser, donationId: Int, completion:@escaping (Donation) -> ())
     func getAllDonations(user: DaffyUser, completion:@escaping ([Donation]) -> ())
@@ -23,8 +26,13 @@ public protocol DaffyDataProviderProtocol {
 }
 
 class DaffyDataProvider: DaffyDataProviderProtocol {
+    
     private let daffyOrgUrl: String = "https://api.daffy.org"
-    private let apiKey: String? = Bundle.main.object(forInfoDictionaryKey: "DAFFY_API_KEY") as? String
+    private var apiKey: String?
+    
+    func setAPIkey(_ key: String) {
+        self.apiKey = key
+    }
     
     func getDonation(user: DaffyUser, donationId: Int, completion:@escaping (Donation) -> ()) {
         makeRequest(path: "/public/api/v1/users/\(user.id)/donations/\(donationId)", method: "GET", completion: completion)

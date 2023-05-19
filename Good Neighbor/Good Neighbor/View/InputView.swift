@@ -28,8 +28,8 @@ struct InputView: View {
                 .padding(.bottom)
             Button("Submit") {
                 print(apiKey)
+                viewModel.handleAPIKey(apiKey.trimmingCharacters(in: .whitespacesAndNewlines))
                 apiKey = ""
-                viewModel.handleAPIKey(apiKey)
             }
             .buttonStyle(.borderedProminent)
             .disabled(apiKey.isEmpty)
