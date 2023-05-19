@@ -36,9 +36,14 @@ class ArticleDetailViewModel: ObservableObject {
     }
     
     func retrieveNonProfitInformation(ein: String) {
-        daffyDataProvider.getNonProfit(ein: ein) { nonProfit in
-            print("Retrieved non profit: \(nonProfit)")
-            self.nonProfits[ein] = nonProfit
+        daffyDataProvider.getNonProfit(ein: ein) { result in
+            switch result {
+            case .success(let success):
+                print("Retrieved non profit: \(success)")
+                self.nonProfits[ein] = success
+            case .failure(let failure):
+                print("Failed to retrieve non profits: \(failure)")
+            }
         }
     }
     
