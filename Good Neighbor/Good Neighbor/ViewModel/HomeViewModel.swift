@@ -16,6 +16,7 @@ class HomeViewModel: ObservableObject {
     @Published var newsArticles: [NewsArticle] = []
     @Published var city: String = "Salt Lake City"
     @Published var donations: [Donation] = [Mocks.mockDonation]
+    @Published var needsAPIKey: Bool = false
     // TODO: Load actual user with retrieveMyUser
     @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
     
@@ -30,6 +31,8 @@ class HomeViewModel: ObservableObject {
                     self.city = city
                 }
             }.store(in: &subscribers)
+        
+        self.retrieveAPIKey()
     }
     
     func retrieveArticles() {
@@ -75,5 +78,18 @@ class HomeViewModel: ObservableObject {
         }
         
         return result
+    }
+    
+    func retrieveAPIKey() {
+        if let storedApiKey = UserDefaults.standard.string(forKey: "apiKey") {
+            // store the API key for API calls
+        } else {
+            needsAPIKey = true
+        }
+    }
+    
+    func handleAPIKey(_ apiKey: String) {
+        // Validate API key
+        // Store API key to UserDefaults
     }
 }
