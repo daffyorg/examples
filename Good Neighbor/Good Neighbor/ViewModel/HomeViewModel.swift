@@ -19,7 +19,6 @@ class HomeViewModel: ObservableObject {
     @Published var state: String = "UT"
     @Published var donations: [Donation] = []
     @Published var apiKeyError: Error?
-    // TODO: Load actual user with retrieveMyUser
     @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
     
     init(locationDataProvider: LocationDataProviderProtocol, daffyDataProvider: DaffyDataProviderProtocol) {
@@ -97,10 +96,19 @@ class HomeViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     self?.apiKeyError = error
                 }
-            case .success(_):
+            case let .success(user):
                 UserDefaults.standard.set(apiKey, forKey: "apiKey")
                 self?.needsAPIKey = false
+                self?.user = user
             }
         }
+    }
+    
+    func getTitle() -> String {
+        guard let name = user.name.components(separatedBy: " ").first else {
+            return "Welcome to \(city)!"
+        }
+        
+        return "Welcome to \(city), \(name)!"
     }
 }

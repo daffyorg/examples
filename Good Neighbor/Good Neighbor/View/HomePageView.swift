@@ -21,7 +21,7 @@ struct HomePageView: View {
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
                                     .frame(height: 58)
-                                Text("Welcome to \(viewModel.city)!")
+                                Text(viewModel.getTitle())
                                     .font(Fonts.largeTitle)
                                     .padding(.bottom, 48)
                                 if let lastDonation = viewModel.donations.last {

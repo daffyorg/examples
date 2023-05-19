@@ -53,7 +53,6 @@ class ArticleDetailViewModel: ObservableObject {
             switch result {
             case .success(let donation):
                 self?.donationCompletionStatus = .success(message: "Successfully donated $\(donation.amount) to \(donation.nonProfit.name)!")
-                //        donationCompletionStatus = .failure(title: "There was an error", errorMessage: "Donation could not be completed because you do not have sufficient funds")
                 self?.shouldShowAlert = true
             case .failure(let failure):
                 self?.shouldShowAlert = false
