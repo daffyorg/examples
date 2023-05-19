@@ -28,7 +28,7 @@ public protocol DaffyDataProviderProtocol {
 class DaffyDataProvider: DaffyDataProviderProtocol {
     
     private let daffyOrgUrl: String = "https://api.daffy.org"
-    private var apiKey: String?
+    private var apiKey: String? = UserDefaults.standard.string(forKey: "apiKey")
     
     func setAPIkey(_ key: String) {
         self.apiKey = key

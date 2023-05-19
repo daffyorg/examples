@@ -26,6 +26,11 @@ struct InputView: View {
                 .background(Color.background2)
                 .cornerRadius(8)
                 .padding(.bottom)
+            if viewModel.apiKeyError != nil {
+                Text("There was an error with the API key")
+                    .font(Fonts.caption1)
+                    .foregroundColor(.red)
+            }
             Button("Submit") {
                 print(apiKey)
                 viewModel.handleAPIKey(apiKey.trimmingCharacters(in: .whitespacesAndNewlines))

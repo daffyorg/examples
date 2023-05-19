@@ -50,9 +50,9 @@ struct HomePageView: View {
                             .padding(.horizontal, 20)
                             .padding(.bottom, 12)
                         ForEach(viewModel.newsArticles) { article in
-                            let viewModel = ArticleDetailViewModel(article: article, daffyDataProvider: DaffyDataProvider())
+                            let articleDetailViewModel = ArticleDetailViewModel(article: article, daffyDataProvider: viewModel.daffyDataProvider)
                             
-                            NavigationLink(destination: ArticleDetailView(viewModel: viewModel)) {
+                            NavigationLink(destination: ArticleDetailView(viewModel: articleDetailViewModel)) {
                                 NewsPreviewView(title: article.title, subtitle: article.content, imageURL: "https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg")
                                     .frame(minHeight: 110)
                                     .padding(.bottom, 12)

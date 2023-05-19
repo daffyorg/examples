@@ -17,6 +17,7 @@ class HomeViewModel: ObservableObject {
     @Published var city: String = "Salt Lake City"
     @Published var needsAPIKey: Bool = false
     @Published var donations: [Donation] = []
+    @Published var apiKeyError: Error?
     // TODO: Load actual user with retrieveMyUser
     @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
     
@@ -33,6 +34,8 @@ class HomeViewModel: ObservableObject {
                     self.retrieveDonations(city: city)
                 }
             }.store(in: &subscribers)
+        
+        UserDefaults.standard.removeObject(forKey: "apiKey")
         
         self.retrieveAPIKey()
     }
@@ -78,9 +81,16 @@ class HomeViewModel: ObservableObject {
     
     func handleAPIKey(_ apiKey: String) {
         daffyDataProvider.setAPIkey(apiKey)
-        daffyDataProvider.retrieveMyUser { [weak self] _ in
-            UserDefaults.standard.set(apiKey, forKey: "apiKey")
-            self?.needsAPIKey = false
+        daffyDataProvider.retrieveMyUser { [weak self] result in
+            switch result {
+            case let .failure(error):
+                DispatchQueue.main.async {
+                    self?.apiKeyError = error
+                }
+            case .success(_):
+                UserDefaults.standard.set(apiKey, forKey: "apiKey")
+                self?.needsAPIKey = false
+            }
         }
     }
 }
