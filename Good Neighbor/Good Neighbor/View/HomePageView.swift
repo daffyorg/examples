@@ -64,6 +64,10 @@ struct HomePageView: View {
                 }
             }
         }
+        // change this to .fullScreenCover so user can't dismiss
+        .sheet(isPresented: $viewModel.needsAPIKey) {
+            InputView(viewModel: viewModel)
+        }
     }
 }
 

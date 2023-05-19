@@ -15,6 +15,7 @@ class HomeViewModel: ObservableObject {
     
     @Published var newsArticles: [NewsArticle] = []
     @Published var city: String = "Salt Lake City"
+    @Published var needsAPIKey: Bool = false
     @Published var donations: [Donation] = []
     // TODO: Load actual user with retrieveMyUser
     @Published var user: DaffyUser = DaffyUser(name: "Test", id: -1)
@@ -32,6 +33,8 @@ class HomeViewModel: ObservableObject {
                     self.retrieveDonations(city: city)
                 }
             }.store(in: &subscribers)
+        
+        self.retrieveAPIKey()
     }
     
     func retrieveDonations(city: String) {
@@ -62,5 +65,18 @@ class HomeViewModel: ObservableObject {
     
     func requestLocation() {
         locationDataProvider.requestLocation()
+    }
+    
+    func retrieveAPIKey() {
+        if let storedApiKey = UserDefaults.standard.string(forKey: "apiKey") {
+            // store the API key for API calls
+        } else {
+            needsAPIKey = true
+        }
+    }
+    
+    func handleAPIKey(_ apiKey: String) {
+        // Validate API key
+        // Store API key to UserDefaults
     }
 }
