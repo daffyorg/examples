@@ -28,7 +28,7 @@ public protocol DaffyDataProviderProtocol {
 
 class DaffyDataProvider: DaffyDataProviderProtocol {
     
-    private let daffyOrgUrl: String = "https://api.daffy.org"
+    private let daffyOrgUrl: String = "https://public.daffy.org"
     private var apiKey: String? = UserDefaults.standard.string(forKey: "apiKey")
     var donations: [Donation] = []
     
