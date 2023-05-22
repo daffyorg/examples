@@ -11,8 +11,6 @@ import Combine
 
 public protocol DaffyDataProviderProtocol {
     // MARK: Set API key
-    var donations: CurrentValueSubject<[Donation], Never> { get }
-    
     func setAPIkey(_ key: String)
     
     // MARK: Donations
@@ -32,7 +30,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     
     private let daffyOrgUrl: String = "https://api.daffy.org"
     private var apiKey: String? = UserDefaults.standard.string(forKey: "apiKey")
-    var donations: CurrentValueSubject<[Donation], Never> = CurrentValueSubject([])
+    var donations: [Donation] = []
     
     func setAPIkey(_ key: String) {
         self.apiKey = key
@@ -44,7 +42,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     
     // TODO: Implement get donation method
     func getAllDonations(user: DaffyUser, completion:@escaping (Result<[Donation], Error>) -> ()) {
-        completion(.success(donations.value))
+        completion(.success(donations))
     }
     
     // TODO: Implement create donation method
@@ -55,9 +53,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             guard let self = self else { return }
             print("Created fake donation: \(donation)")
-            var newDonations = self.donations.value
-            newDonations.append(donation)
-            self.donations.send(newDonations)
+            self.donations.append(donation)
             completion(.success(donation))
         }
     }

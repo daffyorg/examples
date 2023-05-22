@@ -42,6 +42,7 @@ struct HomePageView: View {
                         }
                         .onAppear {
                             viewModel.requestLocationUpdate()
+                            viewModel.retrieveDonations(city: viewModel.city, state: viewModel.state)
                         }
                         Text("NEWS")
                             .kerning(1.8)

@@ -44,11 +44,6 @@ class HomeViewModel: ObservableObject {
             self?.getTitle(user: user)
         }.store(in: &subscribers)
         
-        daffyDataProvider.donations
-            .sink { [weak self] donations in
-                self?.donations = donations
-            }.store(in: &subscribers)
-        
         self.retrieveAPIKey()
         self.requestLocationPermissions()
         self.setLocationTimerUpdate()
