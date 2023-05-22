@@ -50,7 +50,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
         let donation = Donation(id: Int.random(in: 1..<200), nonProfit: nonProfit, amount: amount, note: "For upholding the community", createdAt: Date.now)
         
         // Artificial 1 second delay to simulate network call
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
             guard let self = self else { return }
             print("Created fake donation: \(donation)")
             self.donations.append(donation)

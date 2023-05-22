@@ -14,6 +14,7 @@ struct DonationRecommendationView: View {
     let nonProfit: NonProfit
     @ObservedObject var viewModel: ArticleDetailViewModel
     @State var selectedAmount: Int?
+    @State var alertIsShowing: Bool = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
@@ -33,7 +34,7 @@ struct DonationRecommendationView: View {
                 ForEach(donationAmounts, id: \.self) { amount in
                     DonationPill(amount: amount, action: {
                         selectedAmount = amount
-                        viewModel.shouldShowAlert = true
+                        alertIsShowing = true
                     })
                 }
             }
@@ -43,7 +44,7 @@ struct DonationRecommendationView: View {
         .padding(.vertical, 20)
         .background(Color.background)
         .cornerRadius(12)
-        .alert(isPresented: $viewModel.shouldShowAlert) {
+        .alert(isPresented: $alertIsShowing) {
             var alertTitle = ""
             var alertMessage = ""
             switch viewModel.donationCompletionStatus {
@@ -73,6 +74,23 @@ struct DonationRecommendationView: View {
                 })
             )
         }
+        .onAppear {
+            subscriptions()
+        }
+    }
+    
+    func subscriptions() {
+        viewModel.$donationCompletionStatus
+            .sink { status in
+                switch status {
+                case let .success(title: _, message: message):
+                    if message.contains(nonProfit.name) {
+                        self.alertIsShowing = true
+                    }
+                default:
+                    break
+                }
+            }.store(in: &viewModel.subscribers)
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 enum DonationCompletionStatus: Equatable {
     case needsConfirmation
@@ -16,10 +17,10 @@ enum DonationCompletionStatus: Equatable {
 
 class ArticleDetailViewModel: ObservableObject {
     let daffyDataProvider: DaffyDataProviderProtocol
+    var subscribers = Set<AnyCancellable>()
 
     @Published var article: NewsArticle
     @Published var donationRecommendations: [DonationRecommendation]
-    @Published var shouldShowAlert = false
     @Published var donationCompletionStatus: DonationCompletionStatus = .needsConfirmation
     
     init(article: NewsArticle, daffyDataProvider: DaffyDataProviderProtocol) {
@@ -49,9 +50,7 @@ class ArticleDetailViewModel: ObservableObject {
             switch result {
             case .success(let donation):
                 self?.donationCompletionStatus = .success(message: "Successfully donated $\(donation.amount) to \(donation.nonProfit.name)!")
-                self?.shouldShowAlert = true
             case .failure:
-                self?.shouldShowAlert = false
                 self?.donationCompletionStatus = .failure(title: "Failed to make donation", errorMessage: "Unable to make a donation to \(nonProfit.name) for $\(amount). Please try again later.")
             }
             
