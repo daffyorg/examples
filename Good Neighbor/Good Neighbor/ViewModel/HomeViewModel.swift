@@ -34,6 +34,7 @@ class HomeViewModel: ObservableObject {
                     if city != self.city, state != self.state {
                         self.city = city
                         self.state = state
+                        self.getTitle(user: self.user)
                         self.retrieveArticles(city: city)
                         self.retrieveDonations(city: city, state: state)
                     }
@@ -75,13 +76,13 @@ class HomeViewModel: ObservableObject {
     func retrieveArticles(city: String) {
         switch city {
         case "Salt Lake City":
-            self.newsArticles = [Mocks.SaltLakeCity.mockNewsArticle1]
+            self.newsArticles = [Mocks.SaltLakeCity.mockNewsArticle1, Mocks.SaltLakeCity.mockNewsArticle2]
         case "Boston":
-            self.newsArticles = [Mocks.Boston.mockNewsArticle1]
+            self.newsArticles = [Mocks.Boston.mockNewsArticle1, Mocks.Boston.mockNewsArticle2]
         case "San Francisco":
-            self.newsArticles = [Mocks.SanFrancisco.mockNewsArticle1]
+            self.newsArticles = [Mocks.SanFrancisco.mockNewsArticle1, Mocks.SanFrancisco.mockNewsArticle2]
         default:
-            self.newsArticles = []
+            self.newsArticles = [Mocks.SaltLakeCity.mockNewsArticle1, Mocks.Boston.mockNewsArticle2, Mocks.SaltLakeCity.mockNewsArticle2, Mocks.Boston.mockNewsArticle1, Mocks.SanFrancisco.mockNewsArticle1, Mocks.SanFrancisco.mockNewsArticle2]
         }
     }
     
@@ -129,6 +130,11 @@ class HomeViewModel: ObservableObject {
     }
     
     func getTitle(user: DaffyUser) {
+        guard !city.isEmpty else {
+            title = "Welcome!"
+            return
+        }
+        
         guard let name = user.name.components(separatedBy: " ").first else {
             title = "Welcome to \(city)!"
             return
