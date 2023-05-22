@@ -3,7 +3,7 @@
 *Good Neighbor* is an iOS app that "spreads generosity" as you interact with the local community. It surfaces news local to your city alongside recommended non profits
 to donate to as defined by the article author. This example is designed to spark your creativity with what is possible to build with the [Daffy Public API](https://docs.daffy.org/)!
 
-<p float="left">
+<p align="center" float="left">
 	<img src="images/app-splash-screen.png?raw=true" width=200>
 	<img src="images/app-home-screen.png?raw=true" width=200>
 	<img src="images/app-recording.gif?raw=true" width=200>
