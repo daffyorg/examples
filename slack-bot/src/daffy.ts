@@ -2,7 +2,7 @@ import axios from "axios";
 import { Gift, NonProfit, NonProfitResponse } from "./types";
 
 // Learn more at https://docs.daffy.org
-const apiBaseUrl = "https://api.daffy.org/public/api/v1";
+const apiBaseUrl = "https://public.daffy.org/v1";
 
 export class DaffyClient {
   private apiKey: string;
@@ -50,7 +50,10 @@ export class DaffyClient {
           amount,
         },
         {
-          headers: { "X-Api-Key": this.apiKey },
+          headers: {
+            "X-Api-Key": this.apiKey,
+            "Content-Type": "application/json",
+          },
         }
       );
 
