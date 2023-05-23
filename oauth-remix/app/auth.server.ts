@@ -27,7 +27,7 @@ auth.use(
       clientID: ENV.DAFFY_CLIENT_ID,
       clientSecret: ENV.DAFFY_CLIENT_SECRET,
       domain: "auth.daffy.org",
-      callbackURL: "http://localhost:3000/auth/callback",
+      callbackURL: new URL("/auth/callback", ENV.PUBLIC_HOST).toString(),
     },
     async ({ extraParams }) => {
       let token = z.string().parse(extraParams.id_token);
