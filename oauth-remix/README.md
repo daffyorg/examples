@@ -12,6 +12,8 @@ Once the user is authenticated it uses does a single `fetch` to Daffy's public A
 2. NPM (v6.0 or higher)
 3. A Daffy client ID and secret
 
+> **Note** to get a client ID and secret contact us at partner@daffy.org
+
 ## Setup
 
 1. Clone the repository and navigate to the project folder.
