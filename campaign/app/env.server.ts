@@ -6,5 +6,6 @@ export const ENV = z
     DAFFY_CLIENT_ID: z.string(),
     DAFFY_CLIENT_SECRET: z.string(),
     EIN: z.string().min(9).max(9),
+    PUBLIC_HOST: z.string(),
   })
   .parse(process.env);
