@@ -3,7 +3,7 @@ import { z } from "zod";
 let BASE_URL = new URL("https://public.daffy.org/");
 
 export async function fetchUser(token: string) {
-  let response = await fetch(new URL("/public/api/v1/users/me", BASE_URL), {
+  let response = await fetch(new URL("/v1/users/me", BASE_URL), {
     headers: { Authorization: token },
   });
 
@@ -15,10 +15,9 @@ export async function fetchUser(token: string) {
 }
 
 export async function fetchCharity(token: string, ein: string) {
-  let response = await fetch(
-    new URL(`/public/api/v1/non_profits/${ein}`, BASE_URL),
-    { headers: { "X-Api-Key": token } }
-  );
+  let response = await fetch(new URL(`/v1/non_profits/${ein}`, BASE_URL), {
+    headers: { "X-Api-Key": token },
+  });
 
   if (!response.ok) throw new Error("Charity not found");
 
@@ -32,7 +31,7 @@ export async function fetchDonate(token: string, ein: string, amount: number) {
   if (!user) throw new Error("User not found");
 
   let response = await fetch(
-    new URL(`/public/api/v1/users/${user.id}/donations`, BASE_URL),
+    new URL(`/v1/users/${user.id}/donations`, BASE_URL),
     {
       method: "POST",
       headers: { "Content-Type": "application/json", Authorization: token },
