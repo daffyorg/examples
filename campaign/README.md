@@ -10,8 +10,10 @@ Then uses OAuth2 to allow end-users to authenticate and create a $18 donations t
 
 1. Node.js (v14.0 or higher)
 2. NPM (v6.0 or higher)
-3. A Daffy client ID and secret (https://www.daffy.org/settings/oauth)
+3. A Daffy client ID and secret
 4. A Daffy personal API key (https://www.daffy.org/settings/api)
+
+> **Note** to get a client ID and secret contact us at partner@daffy.org
 
 ## Setup
 
