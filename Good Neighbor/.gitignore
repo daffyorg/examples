@@ -1,0 +1,42 @@
+# Xcode
+## .gitignore file for Xcode projects.
+.DS_Store
+
+# User-specific settings
+xcuserdata/
+
+# Build products
+Build/
+
+# Dependency management files
+Pods/
+Carthage/
+
+# Generated files
+*.o
+*.pyc
+*.swp
+*.xcuserstate
+DerivedData/
+
+# Playgrounds
+*.playground
+
+# Swift Package Manager
+Packages/
+.build/
+
+# Swift Package Manager generated files
+DerivedData/
+.build/
+
+# CocoaPods
+Podfile.lock
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+
+# Code coverage
+*.xcresult/
