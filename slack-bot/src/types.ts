@@ -60,7 +60,7 @@ export type Gift = {
   message?: string;
   name: string;
   seen: boolean;
-  status: string;
+  status: "new" | "accepted" | "denied" | "claimed";
   updated_at: string;
   url: string;
 };
