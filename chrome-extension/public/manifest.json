@@ -1,0 +1,39 @@
+{
+  "name": "Daffy",
+  "description": "Committ to charity every time you purchase something online.",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "logo192.png",
+    "default_title": "Daffy"
+  },
+  "icons": {
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  },
+  "background": {
+    "service_worker": "./static/js/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.daffy.org/settings/api/*",
+        "https://*.amazon.com/*",
+        "http://localhost:4000/*"
+      ],
+      "js": [
+        "./static/js/content.js"
+      ],
+      "all_frames": false,
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ]
+}
