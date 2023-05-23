@@ -26,7 +26,7 @@ auth.use(
     {
       clientID: ENV.DAFFY_CLIENT_ID,
       clientSecret: ENV.DAFFY_CLIENT_SECRET,
-      domain: "dev-frs26tq5.us.auth0.com",
+      domain: "auth.daffy.org",
       callbackURL: "http://localhost:3000/auth/callback",
     },
     async ({ extraParams }) => {
