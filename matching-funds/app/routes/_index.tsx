@@ -104,7 +104,7 @@ export default function Index() {
         )}
 
         {error && <p>{error}</p>}
-        <label htmlFor="amount">How much do you want to give?</label>
+        <label htmlFor="amount">How much would you like to give?</label>
         <input
           id="amount"
           type="number"
