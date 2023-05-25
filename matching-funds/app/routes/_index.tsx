@@ -80,8 +80,8 @@ export default function Index() {
       <h1>Matching campaign</h1>
 
       <p>
-        For every donation to {nonProfit.name} I'll donate the same amount until
-        I get out of funds in my Daffy account.
+        I'll match every donation made to {nonProfit.name}, dollar for dollar, or until
+        funds in my Daffy account are exceeded.
       </p>
 
       <p>
