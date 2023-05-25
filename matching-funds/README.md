@@ -12,7 +12,7 @@ Then uses OAuth2 to allow end-users to authenticate and create donations to that
 2. NPM (v6.0 or higher)
 3. A Daffy client ID and secret
 4. A Daffy personal API key (https://www.daffy.org/settings/api)
-5. The EIN of the non profit you want to support (https://www.daffy.org/charities)
+5. The EIN of the non-profit you want to support (https://www.daffy.org/charities)
 
 > **Note** to get a client ID and secret contact us at partner@daffy.org
 
