@@ -17,8 +17,8 @@ export class DaffyClient {
       "Content-Type": "application/json",
     });
 
-    if (this.type === "oauth") headers.set("Authorization", this.token);
-    else headers.set("X-Api-Key", this.token);
+    const headerName = this.type === "oauth" ? "Authorization" : "X-Api-Key";
+    headers.set(headerName, this.token);
 
     return headers;
   }
