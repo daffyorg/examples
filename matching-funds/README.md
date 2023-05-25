@@ -4,7 +4,7 @@ This application lets users create a matching fund campaign for their favorite c
 
 The campaign uses an EIN defined as an environment variable to fetch the non-profit information from Daffy's API using the personal API key.
 
-Then uses OAuth2 to allow end-users to authenticate and create a donations to that specific non profit, the amount the user choose will also be used to create a donatino with the personal API key.
+Then uses OAuth2 to allow end-users to authenticate and create donations to that specific non-profit. The amount the user chooses will also be used to create a donation with their personal API key.
 
 ## Prerequisites
 
