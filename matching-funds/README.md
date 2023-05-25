@@ -1,6 +1,6 @@
 # Matching Funds
 
-This application let uses create a matching fund campaing for their favorite charity.
+This application lets users create a matching fund campaign for their favorite charity.
 
 The campaing uses an EIN defined as an environment variable to fetch the non profit information from the Daffy's API using the personal API key.
 
