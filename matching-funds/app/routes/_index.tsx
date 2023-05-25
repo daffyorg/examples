@@ -7,7 +7,7 @@ import { DaffyClient } from "~/daffy.server";
 import { ENV } from "~/env.server";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "Matching Campaing" }];
+  return [{ title: "Matching Campaign" }];
 };
 
 export async function loader({ request }: DataFunctionArgs) {
