@@ -20,5 +20,5 @@ Then uses OAuth2 to allow end-users to authenticate and create donations to that
 
 1. Clone the repository and navigate to the project folder.
 2. Install the dependencies with `npm install`.
-3. Rename the `.env.template` to `.env` and put your client ID and secret, your personal API key and a non profit EIN.
+3. Rename the `.env.template` to `.env` and put your client ID and secret, your personal API key, and a non-profit EIN.
 4. Run the application with `npm run dev`
