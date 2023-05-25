@@ -8,11 +8,7 @@ export class DaffyClient {
 
   constructor(token: string) {
     this.token = token;
-    if (token.startsWith("daffy_production_")) {
-      this.type = "api-key";
-    } else {
-      this.type = "oauth";
-    }
+    this.type = token.startsWith("daffy_production_") ? "api-key" : "oauth";
   }
 
   private get headers() {
