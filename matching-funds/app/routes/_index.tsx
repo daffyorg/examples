@@ -77,7 +77,7 @@ export default function Index() {
 
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Matching campaing</h1>
+      <h1>Matching campaign</h1>
 
       <p>
         For every donation to {nonProfit.name} I'll donate the same amount until
