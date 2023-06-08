@@ -28,7 +28,7 @@ public protocol DaffyDataProviderProtocol {
 
 class DaffyDataProvider: DaffyDataProviderProtocol {
     
-    private let daffyOrgUrl: String = "https://public.daffy.org"
+    private let daffyOrgUrl: String = "https://public.daffy.org/v1"
     private var apiKey: String? = UserDefaults.standard.string(forKey: "apiKey")
     var donations: [Donation] = []
     
@@ -37,7 +37,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     }
     
     func getDonation(user: DaffyUser, donationId: Int, completion:@escaping (Result<Donation, Error>) -> ()) {
-        makeRequest(path: "/public/api/v1/users/\(user.id)/donations/\(donationId)", method: "GET", completion: completion)
+        makeRequest(path: "/users/\(user.id)/donations/\(donationId)", method: "GET", completion: completion)
     }
     
     // TODO: Implement get donation method
@@ -59,11 +59,11 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     }
     
     func retrieveMyUser(completion:@escaping (Result<DaffyUser, Error>) -> ()) {
-        makeRequest(path: "/public/api/v1/users/me", method: "GET", completion: completion)
+        makeRequest(path: "/users/me", method: "GET", completion: completion)
     }
     
     func searchNonProfits(query: String, completion:@escaping (Result<[NonProfit], Error>) -> ()) {
-        makeRequest(path: "/public/api/v1/non_profits?query=\(query)", method: "GET") { (result: Result<PaginatedResponse<NonProfit>, Error>) in
+        makeRequest(path: "/non_profits?query=\(query)", method: "GET") { (result: Result<PaginatedResponse<NonProfit>, Error>) in
             switch result {
             case .success(let success):
                 completion(.success(success.items))
@@ -74,7 +74,7 @@ class DaffyDataProvider: DaffyDataProviderProtocol {
     }
     
     func getNonProfit(ein: String, completion:@escaping (Result<NonProfit, Error>) -> ()) {
-        makeRequest(path: "/public/api/v1/non_profits/\(ein)", method: "GET", completion: completion)
+        makeRequest(path: "/non_profits/\(ein)", method: "GET", completion: completion)
     }
     
     private func makeRequest<T : Codable>(path: String, method: String, completion:@escaping (Result<T, Error>) -> ()) {
