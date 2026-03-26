@@ -1,0 +1,15 @@
+{
+  "name": "daffy-http-donation",
+  "version": "1.0.0",
+  "description": "Example: call the Daffy API directly via HTTP to search, check balance, and donate",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "npm run build && node dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.0"
+  }
+}
